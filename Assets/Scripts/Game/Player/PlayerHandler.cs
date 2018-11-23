@@ -18,12 +18,8 @@ public class PlayerHandler : MonoBehaviour
     public int wisdom;
     public int charisma;
 
-    public GameObject playerCam;
-
     void Start ()
     {
-        playerCam = Camera.main.gameObject;
-
         curHealth = maxHealth;
         curStamina = maxStamina;
         curMana = maxMana;

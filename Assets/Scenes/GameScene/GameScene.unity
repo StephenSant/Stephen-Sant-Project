@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 534669903}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: POVCam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,12 +223,12 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.5
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -474,6 +474,7 @@ GameObject:
   - component: {fileID: 1980165940}
   - component: {fileID: 1980165939}
   - component: {fileID: 1980165938}
+  - component: {fileID: 1980165943}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -492,13 +493,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7ca12f23263ae489721b3cc053021b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 150
-  runSpeed: 0
-  jumpHeight: 0
-  gravity: 0
+  walkSpeed: 5
+  runSpeed: 15
+  jumpHeight: 5
+  gravity: 0.25
   handler: {fileID: 0}
   controller: {fileID: 0}
-  test: 0
 --- !u!114 &1980165939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +522,6 @@ MonoBehaviour:
   intelligence: 0
   wisdom: 0
   charisma: 0
-  playerCam: {fileID: 0}
 --- !u!143 &1980165940
 CharacterController:
   m_ObjectHideFlags: 0
@@ -567,3 +566,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980165943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1980165937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b3dd7451e9b9b5498f39b52c643d01b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: {x: 2.5, y: 1}
+  limits: {x: -85, y: 85}
+  cam: {fileID: 0}
