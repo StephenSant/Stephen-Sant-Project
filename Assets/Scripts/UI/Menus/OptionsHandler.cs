@@ -49,7 +49,7 @@ public class OptionsHandler : MonoBehaviour
 
     private void Awake()
     {
-        fullPath = Application.dataPath + "/GameData/" + fileName + ".xml";
+        fullPath = Application.persistentDataPath + "/" + fileName + ".xml";
     }
 
     private void Start()

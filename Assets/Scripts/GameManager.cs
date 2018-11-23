@@ -12,6 +12,7 @@ public class  GameManager : MonoBehaviour
     public static KeyCode forward, backward, left, right, jump, crouch, interact, inventory, leftHand, rightHand, run;
     #endregion
     private OptionPrefs data = new OptionPrefs();
+    public string fileName = "OptionPrefs";
     #endregion
 
     public int strenght;
@@ -25,6 +26,12 @@ public class  GameManager : MonoBehaviour
     public static GameManager GM;
     private void Awake()
     {
+        //Finding and opening the xml file
+		var serializer = new XmlSerializer(typeof(OptionPrefs));
+        using (var stream = new FileStream(Application.persistentDataPath + "/" + fileName + ".xml", FileMode.Open))
+        {
+            data = serializer.Deserialize(stream) as OptionPrefs;
+        }
         //if the game manager does exist, then make this the game manger and dont destroy it though the changing of scenes
         if (GM == null)
         {
@@ -41,12 +48,7 @@ public class  GameManager : MonoBehaviour
 
     // Use this for initialization
     void Start ()
-    {   //Finding and opening the xml file
-		var serializer = new XmlSerializer(typeof(OptionPrefs));
-        using (var stream = new FileStream(Application.dataPath + "/GameData/OptionPrefs.xml", FileMode.Open))
-        {
-            data = serializer.Deserialize(stream) as OptionPrefs;
-        }
+    {   
 
         #region Getting keys
         forward = data.forward;
