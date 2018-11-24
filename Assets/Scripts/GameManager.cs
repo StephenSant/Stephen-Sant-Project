@@ -22,7 +22,7 @@ public class  GameManager : MonoBehaviour
     public int wisdom;
     public int charisma;
 
-    #region Singleton
+    //Singleton
     public static GameManager GM;
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class  GameManager : MonoBehaviour
             Destroy(gameObject);
         }   
     }
-    #endregion
+    
 
     // Use this for initialization
     void Start ()

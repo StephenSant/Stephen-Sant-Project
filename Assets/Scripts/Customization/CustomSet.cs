@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Xml.Serialization;
 using System.IO;
-using System;
 public class CharacterPrefs
     {
-    public float skin;
-    public float hair;
-    public float clothes;
+    public int skin;
+    public int hair;
+    public int clothes;
     public string charName;
     }
 
