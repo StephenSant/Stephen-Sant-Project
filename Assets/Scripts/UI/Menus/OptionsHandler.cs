@@ -54,19 +54,6 @@ public class OptionsHandler : MonoBehaviour
 
     private void Start()
     {
-        volSlider.value = volume;
-        Screen.SetResolution((int)optionsData.resolution.x, (int)optionsData.resolution.y, !optionsData.isFullScreen);
-        waitingForKey = false;
-        forwardButton = "forward";
-        backwardButton = "backward";
-        leftButton = "left";
-        rightButton = "right";
-        jumpButton = "jump";
-        crouchButton = "crouch";
-        interactButton = "interact";
-        inventoryButton = "inventory";
-        runButton="run";
-
         #region Set keys to defaults
         if (forward == KeyCode.None)
         {
@@ -105,6 +92,21 @@ public class OptionsHandler : MonoBehaviour
             inventory = KeyCode.Tab;
         }
         #endregion
+
+        volSlider.value = volume;
+        //Screen.SetResolution((int)optionsData.resolution.x, (int)optionsData.resolution.y, !optionsData.isFullScreen);
+        waitingForKey = false;
+        forwardButton = "forward";
+        backwardButton = "backward";
+        leftButton = "left";
+        rightButton = "right";
+        jumpButton = "jump";
+        crouchButton = "crouch";
+        interactButton = "interact";
+        inventoryButton = "inventory";
+        runButton="run";
+
+        
     }
 
     private void OnGUI()

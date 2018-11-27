@@ -418,9 +418,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'This is you.
 
-    <=========
-
-    Ain''t you pretty.'
+    <========='
 --- !u!222 &1108283643
 CanvasRenderer:
   m_ObjectHideFlags: 0
