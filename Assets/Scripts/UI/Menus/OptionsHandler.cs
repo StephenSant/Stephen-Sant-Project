@@ -94,7 +94,6 @@ public class OptionsHandler : MonoBehaviour
         #endregion
 
         volSlider.value = volume;
-        //Screen.SetResolution((int)optionsData.resolution.x, (int)optionsData.resolution.y, !optionsData.isFullScreen);
         waitingForKey = false;
         forwardButton = "forward";
         backwardButton = "backward";
