@@ -5,6 +5,11 @@ using System.Xml.Serialization;
 using System.IO;
 using System;
 
+//public class GameSave
+//{
+
+//}
+
 public class  GameManager : MonoBehaviour
 {
     #region Variables
@@ -12,26 +17,24 @@ public class  GameManager : MonoBehaviour
     public static KeyCode forward, backward, left, right, jump, crouch, interact, inventory, leftHand, rightHand, run;
     #endregion
     private OptionPrefs data = new OptionPrefs();
-    public string fileName = "OptionPrefs";
-    #endregion
+    private string fileName = "OptionPrefs";
+    //public static GameSave gameSave = new GameSave();
+    //public string saveName = "GameSave";
+    
 
-    public int strenght;
+    public int strength;
     public int dexterity;
     public int constatution;
     public int intelligence;
     public int wisdom;
     public int charisma;
-
+#endregion
     //Singleton
     public static GameManager GM;
     private void Awake()
     {
         //Finding and opening the xml file
-		var serializer = new XmlSerializer(typeof(OptionPrefs));
-        using (var stream = new FileStream(Application.persistentDataPath + "/" + fileName + ".xml", FileMode.Open))
-        {
-            data = serializer.Deserialize(stream) as OptionPrefs;
-        }
+		
         //if the game manager does exist, then make this the game manger and dont destroy it though the changing of scenes
         if (GM == null)
         {
@@ -48,8 +51,13 @@ public class  GameManager : MonoBehaviour
 
     // Use this for initialization
     void Start ()
-    {   
-
+    {
+        fileName = "OptionPrefs";
+        var serializer = new XmlSerializer(typeof(OptionPrefs));
+       using (var stream = new FileStream(Application.persistentDataPath + "/" + fileName + ".xml", FileMode.Open))
+        {
+            data = serializer.Deserialize(stream) as OptionPrefs;
+        }
         #region Getting keys
         forward = data.forward;
         backward = data.backward;
@@ -61,6 +69,7 @@ public class  GameManager : MonoBehaviour
         inventory = data.inventory;
         run = data.run;
         #endregion
+        
     }
 
     // Update is called once per frame

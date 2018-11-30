@@ -29,8 +29,8 @@ public class OptionsHandler : MonoBehaviour
     Event keyEvent;
     public KeyCode newKey;
     public string assignKey;
-    public Text forwardText, backwardText, leftText, rightText, jumpText, crouchText, interactText, inventoryText,  runText;
-    public string forwardButton, backwardButton, leftButton, rightButton, jumpButton, crouchButton, interactButton, inventoryButton,  runButton;
+    public Text forwardText, backwardText, leftText, rightText, jumpText, crouchText, interactText, inventoryText, runText;
+    public string forwardButton, backwardButton, leftButton, rightButton, jumpButton, crouchButton, interactButton, inventoryButton, runButton;
     public bool waitingForKey;
     #endregion
     #region References
@@ -41,7 +41,7 @@ public class OptionsHandler : MonoBehaviour
     #endregion
     #region Game Saves
     [Header("Game Saves")]
-    public string fileName = "OptionPrefs";
+    private string fileName;
     private OptionPrefs optionsData = new OptionPrefs();
     private string fullPath;
     #endregion
@@ -49,6 +49,7 @@ public class OptionsHandler : MonoBehaviour
 
     private void Awake()
     {
+        fileName = "OptionPrefs";
         fullPath = Application.persistentDataPath + "/" + fileName + ".xml";
     }
 
@@ -103,9 +104,9 @@ public class OptionsHandler : MonoBehaviour
         crouchButton = "crouch";
         interactButton = "interact";
         inventoryButton = "inventory";
-        runButton="run";
+        runButton = "run";
 
-        
+
     }
 
     private void OnGUI()
@@ -234,11 +235,11 @@ public class OptionsHandler : MonoBehaviour
         optionsData.inventory = inventory;
         optionsData.interact = interact;
         optionsData.jump = jump;
-
-
         optionsData.volume = volume;
         optionsData.resolution = res[resIndex];
         optionsData.isFullScreen = isFullScreen;
+
+
         var serializer = new XmlSerializer(typeof(OptionPrefs));
         using (var stream = new FileStream(fullPath, FileMode.Create))
         {

@@ -27,12 +27,7 @@ public class PlayerLooking : MonoBehaviour
 
             YRot += (Input.GetAxis("Mouse Y") * sensitivity.y);
             YRot = Mathf.Clamp(YRot, limits.x, limits.y);
-            cam.localEulerAngles = new Vector3(YRot, 0, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Freeze();            
+            cam.localEulerAngles = new Vector3(-YRot, 0, 0);
         }
     }
 

@@ -40,7 +40,7 @@ public class CustomSet : MonoBehaviour
     public string charName = "John";
 
     [Header("Game Saves")]
-    public string fileName = "CharacterPrefs";
+    public string fileName;
     private CharacterPrefs characterData = new CharacterPrefs();
     private string fullPath;
 
@@ -96,7 +96,6 @@ public class CustomSet : MonoBehaviour
     {
         int index = 0, max = 0;
         Material[] textures = new Material[0];
-        Renderer mesh = skinMesh;
         #region Switch Material
         switch (type)
         {
@@ -108,19 +107,16 @@ public class CustomSet : MonoBehaviour
                 //textures is our skin list .ToArray()
                 textures = skin.ToArray();
                 //material
-                mesh = skinMesh;
                 break;
             case "Hair":
                 index = hairIndex;
                 max = hairMax;
                 textures = hair.ToArray();
-                mesh = hairMesh;
                 break;
             case "Clothes":
                 index = clothesIndex;
                 max = clothesMax;
                 textures = clothes.ToArray();
-                mesh = clothesMesh;
                 break;
         }
         #endregion
@@ -165,28 +161,32 @@ public class CustomSet : MonoBehaviour
     }
     private void OnGUI()
     {
-        //create the floats scrW and scrH that govern our 16:9 ratio
-        float scrW = Screen.width / 16,
-            scrH = Screen.height / 9;
+        //create the floats scr.x and scr.y that govern our 16:9 ratio
+        Vector2 scr = Vector2.zero;
+        if (scr.x != Screen.width / 16 || scr.y != Screen.height / 9)
+        {
+            scr.x = Screen.width / 16;
+            scr.y = Screen.height / 9;
+        }
         #region Customisation
         int i = 0;
-        GUI.Box(new Rect(0.5f * scrW, scrH + i * (0.5f * scrH), 2f * scrW, 0.5f * scrH), "Customisation");
+        GUI.Box(new Rect(0.5f * scr.x, scr.y + i * (0.5f * scr.y), 2f * scr.x, 0.5f * scr.y), "Customisation");
 
         //create an int that will help with shuffling your GUI elements under eachother
         i++;
         #region Skin
         //GUI button on the left of the screen with the contence <
-        if (GUI.Button(new Rect(0.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
+        if (GUI.Button(new Rect(0.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
         {
             //when pressed the button will run SetTexture and grab the Skin Material and move the texture index in the direction  -1 
             SetTexture("Skin", -1);
         }
 
         //GUI Box or Lable on the left of the screen with the contence Skin
-        GUI.Box(new Rect(1f * scrW, scrH + i * (0.5f * scrH), 1 * scrW, 0.5f * scrH), "Skin");
+        GUI.Box(new Rect(1f * scr.x, scr.y + i * (0.5f * scr.y), 1 * scr.x, 0.5f * scr.y), "Skin");
 
         //GUI button on the left of the screen with the contence >
-        if (GUI.Button(new Rect(2f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), ">"))
+        if (GUI.Button(new Rect(2f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
         {
             //when pressed the button will run SetTexture and grab the Skin Material and move the texture index in the direction  1
             SetTexture("Skin", 1);
@@ -196,13 +196,13 @@ public class CustomSet : MonoBehaviour
         #endregion
         //set up same things for Hair, Mouth and Eyes
         #region Hair
-        if (GUI.Button(new Rect(0.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
+        if (GUI.Button(new Rect(0.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
         {
 
             SetTexture("Hair", -1);
         }
-        GUI.Box(new Rect(1f * scrW, scrH + i * (0.5f * scrH), 1 * scrW, 0.5f * scrH), "Hair");
-        if (GUI.Button(new Rect(2f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), ">"))
+        GUI.Box(new Rect(1f * scr.x, scr.y + i * (0.5f * scr.y), 1 * scr.x, 0.5f * scr.y), "Hair");
+        if (GUI.Button(new Rect(2f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
         {
             SetTexture("Hair", 1);
         }
@@ -211,13 +211,13 @@ public class CustomSet : MonoBehaviour
         
         
         #region Clothes
-        if (GUI.Button(new Rect(0.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
+        if (GUI.Button(new Rect(0.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
         {
 
             SetTexture("Clothes", -1);
         }
-        GUI.Box(new Rect(1f * scrW, scrH + i * (0.5f * scrH), 1 * scrW, 0.5f * scrH), "Clothes");
-        if (GUI.Button(new Rect(2f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), ">"))
+        GUI.Box(new Rect(1f * scr.x, scr.y + i * (0.5f * scr.y), 1 * scr.x, 0.5f * scr.y), "Clothes");
+        if (GUI.Button(new Rect(2f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
         {
             SetTexture("Clothes", 1);
         }
@@ -227,14 +227,14 @@ public class CustomSet : MonoBehaviour
         #region Random Reset
         //create 2 buttons one Random and one Reset
         //Random will feed a random amount to the direction 
-        if (GUI.Button(new Rect(0.5f * scrW, scrH + i * (0.5f * scrH), scrW, 0.5f * scrH), "Random"))
+        if (GUI.Button(new Rect(0.5f * scr.x, scr.y + i * (0.5f * scr.y), scr.x, 0.5f * scr.y), "Random"))
         {
             SetTexture("Skin", UnityEngine.Random.Range(0, skinMax - 1));
             SetTexture("Hair", UnityEngine.Random.Range(0, hairMax - 1));
             SetTexture("Clothes", UnityEngine.Random.Range(0, clothesMax - 1));
         }
         //reset will set all to 0 both use SetTexture
-        if (GUI.Button(new Rect(1.5f * scrW, scrH + i * (0.5f * scrH), scrW, 0.5f * scrH), "Reset"))
+        if (GUI.Button(new Rect(1.5f * scr.x, scr.y + i * (0.5f * scr.y), scr.x, 0.5f * scr.y), "Reset"))
         {
             SetTexture("Skin", skinIndex = 0);
             SetTexture("Hair", hairIndex = 0);
@@ -245,9 +245,9 @@ public class CustomSet : MonoBehaviour
         
         #region Skills
         i = 0;
-        GUI.Box(new Rect(4.1f * scrW, scrH + i * (0.5f * scrH), 1f * scrW, 0.5f * scrH), "Skills:");
+        GUI.Box(new Rect(4.1f * scr.x, scr.y + i * (0.5f * scr.y), 1f * scr.x, 0.5f * scr.y), "Skills:");
         i++;
-        if (GUI.Button(new Rect(3.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "-"))
+        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-"))
         {
             if (strength != baseAmout)
             {
@@ -259,8 +259,8 @@ public class CustomSet : MonoBehaviour
                 }
             }
         }
-        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 1.75f * scrW, 0.5f * scrH), "Strength = " + strength);
-        if (GUI.Button(new Rect(5.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "+"))
+        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Strength = " + strength);
+        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+"))
         {
             if (strength != 10 && points != baseAmout)
             {
@@ -269,7 +269,7 @@ public class CustomSet : MonoBehaviour
             }
         }
         i++;
-        if (GUI.Button(new Rect(3.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "-"))
+        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-"))
         {
             if (dexterity != baseAmout)
             {
@@ -281,8 +281,8 @@ public class CustomSet : MonoBehaviour
                 }
             }
         }
-        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 1.75f * scrW, 0.5f * scrH), "Dexterity = " + dexterity);
-        if (GUI.Button(new Rect(5.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "+"))
+        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Dexterity = " + dexterity);
+        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+"))
         {
             if (dexterity != 10 && points != baseAmout)
             {
@@ -291,7 +291,7 @@ public class CustomSet : MonoBehaviour
             }
         }
         i++;
-        if (GUI.Button(new Rect(3.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "-"))
+        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-"))
         {
             if (constitution != baseAmout)
             {
@@ -303,8 +303,8 @@ public class CustomSet : MonoBehaviour
                 }
             }
         }
-        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 1.75f * scrW, 0.5f * scrH), "Constitution = " + constitution);
-        if (GUI.Button(new Rect(5.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "+"))
+        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Constitution = " + constitution);
+        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+"))
         {
             if (constitution != 10 && points != baseAmout)
             {
@@ -313,7 +313,7 @@ public class CustomSet : MonoBehaviour
             }
         }
         i++;
-        if (GUI.Button(new Rect(3.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "-"))
+        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-"))
         {
             if (inteligence != baseAmout)
             {
@@ -325,8 +325,8 @@ public class CustomSet : MonoBehaviour
                 }
             }
         }
-        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 1.75f * scrW, 0.5f * scrH), "Inteligence = " + inteligence);
-        if (GUI.Button(new Rect(5.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "+"))
+        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Inteligence = " + inteligence);
+        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+"))
         {
             if (inteligence != 10 && points != baseAmout)
             {
@@ -335,7 +335,7 @@ public class CustomSet : MonoBehaviour
             }
         }
         i++;
-        if (GUI.Button(new Rect(3.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "-"))
+        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-"))
         {
             if (wisdom != baseAmout)
             {
@@ -347,8 +347,8 @@ public class CustomSet : MonoBehaviour
                 }
             }
         }
-        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 1.75f * scrW, 0.5f * scrH), "Wisdom = " + wisdom);
-        if (GUI.Button(new Rect(5.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "+"))
+        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Wisdom = " + wisdom);
+        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+"))
         {
             if (wisdom != 10 && points != baseAmout)
             {
@@ -357,7 +357,7 @@ public class CustomSet : MonoBehaviour
             }
         }
         i++;
-        if (GUI.Button(new Rect(3.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "-"))
+        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-"))
         {
             if (charisma != baseAmout)
             {
@@ -369,8 +369,8 @@ public class CustomSet : MonoBehaviour
                 }
             }
         }
-        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 1.75f * scrW, 0.5f * scrH), "Chariama = " + charisma);
-        if (GUI.Button(new Rect(5.5f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "+"))
+        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Chariama = " + charisma);
+        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+"))
         {
             if (charisma != 10 && points != baseAmout)
             {
@@ -379,15 +379,15 @@ public class CustomSet : MonoBehaviour
             }
         }
         i++;
-        GUI.Box(new Rect(3.75f * scrW, scrH + i * (0.5f * scrH), 1.75f * scrW, 0.5f * scrH), "Points: " + points);
+        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Points: " + points);
         #endregion
         #region Character Name and Save & Play
         //name of our character equals a GUI TextField that holds our character name and limit of characters
-        charName = GUI.TextField(new Rect(10.25f * scrW, 1.5f * scrH, 1.75f * scrW, .35f * scrH), charName, 16);
+        charName = GUI.TextField(new Rect(10.25f * scr.x, 1.5f * scr.y, 1.75f * scr.x, .35f * scr.y), charName, 16);
         //move down the screen with the int using ++ each grouping of GUI elements are moved using this
         i++;
         //GUI Button called Save and Play
-        if (GUI.Button(new Rect(13.75f * scrW, scrH * 4.75f, 2 * scrW, 0.5f * scrH), "Save and Play") && points == 0)
+        if (GUI.Button(new Rect(13.75f * scr.x, scr.y * 4.75f, 2 * scr.x, 0.5f * scr.y), "Save and Play") && points == 0)
         {
             //this button will run the save function and also load into the game scene
             Save();
@@ -395,10 +395,10 @@ public class CustomSet : MonoBehaviour
         }
         if (points != 0)
         {
-            GUI.Box(new Rect(13.6f * scrW, scrH * 5.5f, 2.3f * scrW, .75f * scrH), "All points must be\nspent before continuing!");
+            GUI.Box(new Rect(13.6f * scr.x, scr.y * 5.5f, 2.3f * scr.y, .75f * scr.y), "All points must be\nspent before continuing!");
         }
         #endregion
-        if (GUI.Button(new Rect(13.75f * scrW, scrH * 4f, 2 * scrW, 0.5f * scrH), "Back"))
+        if (GUI.Button(new Rect(13.75f * scr.x, scr.y * 4f, 2 * scr.x, 0.5f * scr.y), "Back"))
         {
             SceneManager.LoadScene(0);
         }

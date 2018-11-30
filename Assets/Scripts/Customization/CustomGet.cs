@@ -12,11 +12,12 @@ public class CustomGet : MonoBehaviour
     public Renderer clothesMesh;
 
     private CharacterPrefs data = new CharacterPrefs();
-    private string fileName = "CharacterPrefs";
+    private string fileName;
 
     // Use this for initialization
     void Start()
     {
+        fileName = "CharacterPrefs";
         LoadTexture();
     }
     void LoadTexture()

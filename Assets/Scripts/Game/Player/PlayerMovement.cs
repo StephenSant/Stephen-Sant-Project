@@ -29,13 +29,15 @@ public class PlayerMovement : MonoBehaviour
         float speed = walkSpeed;//speed that we're moving at
 
         //Running
-        if (Input.GetKey(GameManager.run))
+        if (Input.GetKey(GameManager.run) && handler.curStamina > 0.1f)
         {
             speed = runSpeed;
+            handler.curStamina -= 0.5f;
         }
         else
         {
             speed = walkSpeed;
+            handler.curStamina += 0.05f;
         }
 
         //Moving backwards and forwards
