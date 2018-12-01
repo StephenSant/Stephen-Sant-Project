@@ -18,6 +18,7 @@ public class Item
     {
 
     }
+
     public Item(int id, string name, string description, int value, ItemTypes types, string meshName)
     {
         _id = id;

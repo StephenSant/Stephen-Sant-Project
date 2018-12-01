@@ -7,37 +7,48 @@ using UnityEngine.SceneManagement;
 public class Pausing : MonoBehaviour
 {
     public int mainMenu = 0;
-    public bool showPause;
+    private static bool showPause;
 
-    // Use this for initialization
-    void Start ()
+    public static bool TogglePause()
     {
-        
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+        if (showPause)
+        {
+            showPause = false;
+            PlayerUI.Freeze();
+            return (false);
+        }
+        else
+        {
+            showPause = true;
+            PlayerUI.Freeze();
+            return (true);
+        }
+    }
 
     void OnGUI()
     {
-        Vector2 scr = new Vector2(Screen.width,Screen.height);
+        //screen scaling
+        Vector2 scr = Vector2.zero;
+        if (scr.x != Screen.width / 16 || scr.y != Screen.height / 9)
+        {
+            scr.x = Screen.width / 16;
+            scr.y = Screen.height / 9;
+        }
         if (showPause)
         {
-            GUI.Box(new Rect(scr.x * 0, scr.y * 0, scr.x, scr.y),"");
-            GUI.Box(new Rect(scr.x * 0.35f, scr.y * 0.1f, scr.x * .3f, scr.y * .2f),"Paused");
-            if(GUI.Button(new Rect(scr.x *0.4f, scr.y *0.4f, scr.x*.2f, scr.y*.1f), "Resume"))
+            //background
+            GUI.Box(new Rect(scr.x * 0, scr.y * 0, scr.x* 16.2f, scr.y*9.1f),"");
+            GUI.Box(new Rect(scr.x * 5f, scr.y * 1f, scr.x * 6f, scr.y * 2),"Paused");
+            if(GUI.Button(new Rect(scr.x *6.5f, scr.y *4f, scr.x*3f, scr.y*1f), "Resume"))
             {
-                PlayerLooking.Freeze();
+                PlayerUI.Freeze();
                 showPause = false;
             }
-            if (GUI.Button(new Rect(scr.x *0.4f, scr.y *0.51f, scr.x*.2f, scr.y*.1f), "Save"))
+            if (GUI.Button(new Rect(scr.x *6.5f, scr.y *5.1f, scr.x*3f, scr.y*1f), "Save"))
             {
                 
             }
-            if (GUI.Button(new Rect(scr.x *0.4f, scr.y *0.62f, scr.x*.2f, scr.y*.1f), "Exit To Menu"))
+            if (GUI.Button(new Rect(scr.x *6.5f, scr.y *6.2f, scr.x*3f, scr.y*1f), "Exit To Menu"))
             {
                 SceneManager.LoadScene(mainMenu);
             }

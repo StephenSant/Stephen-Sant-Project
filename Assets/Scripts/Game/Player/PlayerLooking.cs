@@ -8,7 +8,6 @@ public class PlayerLooking : MonoBehaviour
     public Vector2 sensitivity = new Vector2(25f, 10);
     public Vector2 limits = new Vector2(-85, 85); // X=Max | Y=Min
     public Transform cam;
-    public static bool isFrozen;
     float YRot;
 
     
@@ -31,25 +30,5 @@ public class PlayerLooking : MonoBehaviour
         }
     }
 
-    public static bool Freeze()
-    {
-        if (isFrozen)
-        {
-            Time.timeScale = 1;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            isFrozen = false;
-
-        }
-        else
-        {
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            isFrozen = true;
-
-        }
-        return isFrozen;
-
-    }
+    
 }

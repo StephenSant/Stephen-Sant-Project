@@ -19,8 +19,10 @@ public class PlayerHandler : MonoBehaviour
     public int charisma;
 
     public bool showUI = true;
+
     private PlayerUI uI;
     private Pausing pausing;
+    private Inventory inventory;
 
     void Start()
     {
@@ -29,6 +31,8 @@ public class PlayerHandler : MonoBehaviour
         curMana = maxMana;
         uI = GetComponent<PlayerUI>();
         pausing = GetComponent<Pausing>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -37,19 +41,21 @@ public class PlayerHandler : MonoBehaviour
         {
             curStamina = maxStamina;
         }
+        if (curMana > maxMana)
+        {
+            curMana = maxMana;
+        }
+        if (curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PlayerLooking.Freeze();
-            if (pausing.showPause)
-            {
-                showUI = true;
-                pausing.showPause = false;
-            }
-            else
-            {
-                showUI = false;
-                pausing.showPause = true;
-            }
+            Pausing.TogglePause();
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Inventory.ToggleInv();
         }
         uI.enabled = showUI;
     }
