@@ -9,6 +9,10 @@ public class Pausing : MonoBehaviour
     public int mainMenu = 0;
     private static bool showPause;
 
+    public GUIStyle backgroundStyle;
+    public GUIStyle pauseTextStyle;
+    public GUIStyle buttonStyle;
+
     public static bool TogglePause()
     {
         if (showPause)
@@ -37,18 +41,18 @@ public class Pausing : MonoBehaviour
         if (showPause)
         {
             //background
-            GUI.Box(new Rect(scr.x * 0, scr.y * 0, scr.x* 16.2f, scr.y*9.1f),"");
-            GUI.Box(new Rect(scr.x * 5f, scr.y * 1f, scr.x * 6f, scr.y * 2),"Paused");
-            if(GUI.Button(new Rect(scr.x *6.5f, scr.y *4f, scr.x*3f, scr.y*1f), "Resume"))
+            GUI.Box(new Rect(scr.x * 0, scr.y * 0, scr.x* 16.2f, scr.y*9.1f),"",backgroundStyle);
+            GUI.Box(new Rect(scr.x * 5f, scr.y * 1f, scr.x * 6f, scr.y * 2),"Paused",pauseTextStyle);
+            if(GUI.Button(new Rect(scr.x *6.5f, scr.y *4f, scr.x*3f, scr.y*1f), "Resume",buttonStyle))
             {
                 PlayerUI.Freeze();
                 showPause = false;
             }
-            if (GUI.Button(new Rect(scr.x *6.5f, scr.y *5.1f, scr.x*3f, scr.y*1f), "Save"))
+            if (GUI.Button(new Rect(scr.x *6.5f, scr.y *5.1f, scr.x*3f, scr.y*1f), "Save", buttonStyle))
             {
                 
             }
-            if (GUI.Button(new Rect(scr.x *6.5f, scr.y *6.2f, scr.x*3f, scr.y*1f), "Exit To Menu"))
+            if (GUI.Button(new Rect(scr.x *6.5f, scr.y *6.2f, scr.x*3f, scr.y*1f), "Exit To Menu", buttonStyle))
             {
                 SceneManager.LoadScene(mainMenu);
             }
