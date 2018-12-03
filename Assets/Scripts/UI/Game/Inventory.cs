@@ -31,10 +31,9 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         handler = GetComponent<PlayerHandler>();
-        for (int i = 0; i < 20; i++)
-        {
-            inv.Add(ItemData.CreateItem(0));
-        }
+
+        inv.Add(ItemData.CreateItem(0));
+
 
     }
 
@@ -110,7 +109,7 @@ public class Inventory : MonoBehaviour
                         GUI.Box(new Rect(5.5f * scr.x, 3.75f * scr.y, 5 * scr.x, 2 * scr.y), selectedItem.Description + "\n\nAmount: " + selectedItem.Amount + "\nValue: " + selectedItem.Value + "\nHealth: " + selectedItem.Heal, infoStyle);
                         if (handler.curHealth < handler.maxHealth)
                         {
-                            if (GUI.Button(new Rect(6.5f * scr.x, 5.75f * scr.y, 1 * scr.x, 0.5f * scr.y), "Use",buttonStyle))
+                            if (GUI.Button(new Rect(6.5f * scr.x, 5.75f * scr.y, 1 * scr.x, 0.5f * scr.y), "Use", buttonStyle))
                             {
                                 handler.curHealth += selectedItem.Heal;
                                 if (selectedItem.Amount > 1)
@@ -301,7 +300,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (inv[i].Type == ItemTypes.Consumables || inv[i].Type == ItemTypes.Craftable)
                     {
-                        if (GUI.Button(new Rect(1.9f * scr.x, 1 * scr.y + i * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name + " x" + inv[i].Amount, itemStyle))
+                        if (GUI.Button(new Rect(2 * scr.x, 1 * scr.y + i * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name + " x" + inv[i].Amount, itemStyle))
                         {
                             selectedItem = inv[i];
                             Debug.Log(selectedItem.Name);
@@ -309,7 +308,7 @@ public class Inventory : MonoBehaviour
                     }
                     else
                     {
-                        if (GUI.Button(new Rect(1.9f * scr.x, 01 * scr.y + i * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name, itemStyle))
+                        if (GUI.Button(new Rect(2 * scr.x, 01 * scr.y + i * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name, itemStyle))
                         {
                             selectedItem = inv[i];
                             Debug.Log(selectedItem.Name);

@@ -53,7 +53,7 @@ public class PlayerHandler : MonoBehaviour
         {
             Pausing.TogglePause();
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(GameManager.inventory))
         {
             Inventory.ToggleInv();
         }
