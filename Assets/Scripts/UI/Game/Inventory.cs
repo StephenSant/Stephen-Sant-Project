@@ -15,7 +15,6 @@ public class Inventory : MonoBehaviour
     public Transform[] equippedLocation;
     public GameObject curWeapon;
     public Item weaponInfo;
-    public GameObject curHelm;
 
     private static bool showInv;
     private PlayerHandler handler;
@@ -33,7 +32,7 @@ public class Inventory : MonoBehaviour
         handler = GetComponent<PlayerHandler>();
 
         inv.Add(ItemData.CreateItem(0));
-
+        inv.Add(ItemData.CreateItem(202));
 
     }
 
@@ -166,10 +165,12 @@ public class Inventory : MonoBehaviour
                             if (GUI.Button(new Rect(6.5f * scr.x, 5.75f * scr.y, 1 * scr.x, 0.5f * scr.y), "Equip", buttonStyle))
                             {
                                 weaponInfo = selectedItem;
+                                Instantiate(Resources.Load("Prefabs/Items/" + weaponInfo.MeshName),equippedLocation[0]);
                                 if (curWeapon != null)
                                 {
                                     Destroy(curWeapon);
                                 }
+
                             }
                         }
                         else if (curWeapon != null)
@@ -189,10 +190,6 @@ public class Inventory : MonoBehaviour
                     {
                         Destroy(curWeapon);
                         weaponInfo = null;
-                    }
-                    else if (curHelm != null && selectedItem.MeshName == curHelm.name)
-                    {
-                        Destroy(curHelm);
                     }
 
                     GameObject clone = Instantiate(Resources.Load("Prefabs/Items/" + selectedItem.MeshName) as GameObject, dropLocation.position, Quaternion.identity);

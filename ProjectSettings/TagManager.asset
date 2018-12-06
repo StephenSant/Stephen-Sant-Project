@@ -7,6 +7,7 @@ TagManager:
   - POVCam
   - Item
   - GameManager
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - PostProcessing
   - MiniMap
-  - 
-  - 
+  - Player
+  - Player_Magic
   - 
   - 
   - 

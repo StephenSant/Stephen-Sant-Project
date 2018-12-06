@@ -67,7 +67,7 @@ public class PlayerUI : MonoBehaviour
             //green health bar
             GUI.Box(new Rect(scr.x * 5f, scr.y * 0, scr.x * 5f * (handler.curHealth / handler.maxHealth), scr.y * 1f), "", healthForeground);
             //mini-map
-            GUI.DrawTexture(new Rect(scr.x * 14.2f, scr.y * 0f, scr.x * 2f, scr.y * 2f), miniMap);
+            GUI.DrawTexture(new Rect(scr.x * 14f, scr.y * 0f, scr.x * 2f, scr.y * 2f), miniMap);
             //crosshair
             GUI.Box(new Rect(scr.x * 8, scr.y * 4.5f, scr.x * .1f, scr.y * .1f), "");
         }
