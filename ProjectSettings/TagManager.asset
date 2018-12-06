@@ -6,6 +6,7 @@ TagManager:
   tags:
   - POVCam
   - Item
+  - GameManager
   layers:
   - Default
   - TransparentFX

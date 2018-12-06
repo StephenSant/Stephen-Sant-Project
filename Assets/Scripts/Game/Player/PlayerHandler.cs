@@ -30,7 +30,6 @@ public class PlayerHandler : MonoBehaviour
         curStamina = maxStamina;
         curMana = maxMana;
         uI = GetComponent<PlayerUI>();
-        pausing = GetComponent<Pausing>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

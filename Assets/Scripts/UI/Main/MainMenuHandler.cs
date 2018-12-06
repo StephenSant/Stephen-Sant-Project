@@ -19,6 +19,18 @@ public class MainMenuHandler : MonoBehaviour
         showOptions = false;
     }
 
+    void Update()
+    {
+        if (!Cursor.visible)
+        {
+            Cursor.visible = true;
+        }
+        if (Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
     public void NewGame(int scene)
     {
         SceneManager.LoadScene(scene);

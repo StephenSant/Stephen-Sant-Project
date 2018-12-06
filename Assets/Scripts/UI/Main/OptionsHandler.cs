@@ -21,7 +21,7 @@ public class OptionsHandler : MonoBehaviour
     #endregion
     #region Visual
     public Vector2[] res = new Vector2[7];
-    public int resIndex;
+    public int resIndex = 6;
     public bool isFullScreen = true;
     #endregion
     #region Keys
@@ -41,20 +41,14 @@ public class OptionsHandler : MonoBehaviour
     #endregion
     #region Game Saves
     [Header("Game Saves")]
-    private string fileName;
     private OptionPrefs optionsData = new OptionPrefs();
-    private string fullPath;
+    private string fileName = "OptionPrefs";
     #endregion
     #endregion
-
-    private void Awake()
-    {
-        fileName = "OptionPrefs";
-        fullPath = Application.persistentDataPath + "/" + fileName + ".xml";
-    }
 
     private void Start()
     {
+        
         #region Set keys to defaults
         if (forward == KeyCode.None)
         {
@@ -94,6 +88,20 @@ public class OptionsHandler : MonoBehaviour
         }
         #endregion
 
+
+        var serializer = new XmlSerializer(typeof(OptionPrefs));
+        using (var stream = new FileStream(Application.persistentDataPath + "/" + fileName + ".xml", FileMode.Open))
+        {
+            optionsData = serializer.Deserialize(stream) as OptionPrefs;
+        }
+
+        if (optionsData.resolution != Vector2.zero)
+        {
+            Screen.SetResolution((int)optionsData.resolution.x, (int)optionsData.resolution.y, optionsData.isFullScreen);
+        }
+
+
+
         volSlider.value = volume;
         waitingForKey = false;
         forwardButton = "forward";
@@ -101,7 +109,6 @@ public class OptionsHandler : MonoBehaviour
         leftButton = "left";
         rightButton = "right";
         jumpButton = "jump";
-        crouchButton = "crouch";
         interactButton = "interact";
         inventoryButton = "inventory";
         runButton = "run";
@@ -111,6 +118,7 @@ public class OptionsHandler : MonoBehaviour
 
     private void OnGUI()
     {
+        //Getting a key for the key binding
         keyEvent = Event.current;
         if (waitingForKey && keyEvent.isKey)
         {
@@ -128,15 +136,15 @@ public class OptionsHandler : MonoBehaviour
         leftText.text = left.ToString();
         rightText.text = right.ToString();
         jumpText.text = jump.ToString();
-        crouchText.text = crouch.ToString();
         runText.text = run.ToString();
         inventoryText.text = inventory.ToString();
         interactText.text = interact.ToString();
         #endregion
+        //which key is being assigned
         switch (assignKey)
         {
             case "forward":
-                forward = newKey;
+                forward = newKey; //the forward button is now the key that was pressed
                 break;
             case "backward":
                 backward = newKey;
@@ -164,15 +172,15 @@ public class OptionsHandler : MonoBehaviour
                 break;
         }
     }
-    public void Resolution()
+    public void Resolution()//sets the resolution
     {
         resIndex = resDropdown.value;
-        Screen.SetResolution((int)res[resIndex].x, (int)res[resIndex].y, isFullScreen);
+        Screen.SetResolution((int)res[resIndex].x, (int)res[resIndex].y, Screen.fullScreen);
     }
-    public void Windowed()
+    public void Windowed()//sets windowed mode
     {
         isFullScreen = windowedToggle.isOn;
-        Screen.SetResolution((int)res[resIndex].x, (int)res[resIndex].y, isFullScreen);
+        Screen.SetResolution(Screen.width, Screen.height, isFullScreen);
     }
     public void KeyBinds(string button)
     {
@@ -241,7 +249,7 @@ public class OptionsHandler : MonoBehaviour
 
 
         var serializer = new XmlSerializer(typeof(OptionPrefs));
-        using (var stream = new FileStream(fullPath, FileMode.Create))
+        using (var stream = new FileStream(Application.persistentDataPath + "/" + fileName + ".xml", FileMode.Create))
         {
             serializer.Serialize(stream, optionsData);
         }

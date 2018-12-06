@@ -274,7 +274,6 @@ public class Inventory : MonoBehaviour
                             if (GUI.Button(new Rect(3 * scr.x, s * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name + " x" + inv[i].Amount, itemStyle))
                             {
                                 selectedItem = inv[i];
-                                Debug.Log(selectedItem.Name);
                             }
                         }
                         else
@@ -282,10 +281,9 @@ public class Inventory : MonoBehaviour
                             if (GUI.Button(new Rect(3 * scr.x, s * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name, itemStyle))
                             {
                                 selectedItem = inv[i];
-                                Debug.Log(selectedItem.Name);
                             }
                         }
-                        s++;//move down 1 position
+                        s++;
                     }
                 }
                 GUI.EndScrollView();
@@ -303,7 +301,6 @@ public class Inventory : MonoBehaviour
                         if (GUI.Button(new Rect(2 * scr.x, 1 * scr.y + i * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name + " x" + inv[i].Amount, itemStyle))
                         {
                             selectedItem = inv[i];
-                            Debug.Log(selectedItem.Name);
                         }
                     }
                     else
@@ -311,7 +308,6 @@ public class Inventory : MonoBehaviour
                         if (GUI.Button(new Rect(2 * scr.x, 01 * scr.y + i * (0.5f * scr.y), 2.75f * scr.x, 0.5f * scr.y), inv[i].Name, itemStyle))
                         {
                             selectedItem = inv[i];
-                            Debug.Log(selectedItem.Name);
                         }
                     }
                 }

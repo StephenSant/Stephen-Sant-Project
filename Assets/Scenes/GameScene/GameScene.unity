@@ -1155,8 +1155,8 @@ GameObject:
   - component: {fileID: 1943034765}
   - component: {fileID: 1943034764}
   m_Layer: 0
-  m_Name: GM
-  m_TagString: Untagged
+  m_Name: _GM
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1172,6 +1172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af351d41ca861b74681b969975730c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName:
+  - OptionPrefs
+  - GameSave
+  player: {fileID: 1980165937}
   strength: 0
   dexterity: 0
   constatution: 0
@@ -1210,7 +1214,7 @@ GameObject:
   - component: {fileID: 1980165947}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
