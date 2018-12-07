@@ -9,7 +9,10 @@ public class CharacterPrefs
     public int skin;
     public int hair;
     public int clothes;
-    public string charName;
+    public string playerName;
+
+    public int[] playerStats;
+    public string playerClass;
     }
 
 public class CustomSet : MonoBehaviour
@@ -49,9 +52,13 @@ public class CustomSet : MonoBehaviour
     public int strength = 0;
     [Range(1, 10)]
     public int dexterity = 0, constitution = 0, inteligence = 0, wisdom =0, charisma = 0;
-    public int points = 8;
+    public int points = 10;
     public int baseAmout = 0;
 
+    public int[] stats, tempStats;
+    public string[] statNames, classes;
+    public int selectedIndex;
+    public int classIndex;
     [Header("Styles")]
     public GUIStyle buttonStyle;
     public GUIStyle inputStyle;
@@ -66,12 +73,40 @@ public class CustomSet : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        strength = 0;
+        /*strength = 0;
         dexterity = 0;
         constitution = 0;
         inteligence = 0;
         wisdom = 0;
-        charisma = 0;
+        charisma = 0;*/
+        statNames = new string[6] 
+        {
+        "Strength",
+        "Dexterity",
+        "Constitution",
+        "Intelligence" ,
+        "Wisdom" ,
+        "Charisma"
+        };
+        tempStats = new int[6];
+        stats = new int[6];
+        classes = new string[]
+        {
+            "Barbarian",
+            "Bard",
+            "Cleric",
+            "Druid",
+            "Fighter",
+            "Monk",
+            "Paladin",
+            "Ranger",
+            "Rogue",
+            "Sorcerer",
+            "Warlock",
+            "Wizard",
+        };
+        ChooseClass(selectedIndex);
+
         #region Pulling the Textures from the file
         for (int i = 0; i < skinMax; i++)
         {
@@ -247,143 +282,192 @@ public class CustomSet : MonoBehaviour
         }
         //move down the screen with the int using ++ each grouping of GUI elements are moved using this
         #endregion
-        
+        #region classes
+        i+=2;
+        GUI.Box(new Rect(.5f * scr.x, scr.y + i * (0.5f * scr.y), 2 * scr.x, 0.5f * scr.y), "Class", textStyle);
+        i++;
+        if (GUI.Button(new Rect(0.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<", buttonStyle))
+        {
+            selectedIndex--;
+            if (selectedIndex < 0)
+            {
+                selectedIndex = classes.Length - 1;
+            }
+            ChooseClass(selectedIndex);
+
+        }
+        GUI.Box(new Rect(1f * scr.x, scr.y + i * (0.5f * scr.y), 1 * scr.x, 0.5f * scr.y), classes[selectedIndex], textStyle);
+        if (GUI.Button(new Rect(2f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">", buttonStyle))
+        {
+            selectedIndex++;
+            if (selectedIndex > classes.Length - 1)
+            {
+                selectedIndex = 0;
+            }
+            ChooseClass(selectedIndex);
+        }
+        i++;
+        #endregion
         #region Skills
         i = 0;
         GUI.Box(new Rect(4.1f * scr.x, scr.y + i * (0.5f * scr.y), 1f * scr.x, 0.5f * scr.y), "Skills:", textStyle);
         i++;
-        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
+        #region Old
+        /* if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
+         {
+             if (strength != baseAmout)
+             {
+                 strength--;
+                 points++;
+                 if (strength <= baseAmout)
+                 {
+                     strength = baseAmout;
+                 }
+             }
+         }
+         GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Strength = " + strength, textStyle);
+         if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
+         {
+             if (strength != 10 && points != baseAmout)
+             {
+                 strength++;
+                 points--;
+             }
+         }
+         i++;
+         if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
+         {
+             if (dexterity != baseAmout)
+             {
+                 dexterity--;
+                 points++;
+                 if (dexterity <= baseAmout)
+                 {
+                     dexterity = baseAmout;
+                 }
+             }
+         }
+         GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Dexterity = " + dexterity, textStyle);
+         if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+",buttonStyle))
+         {
+             if (dexterity != 10 && points != baseAmout)
+             {
+                 dexterity++;
+                 points--;
+             }
+         }
+         i++;
+         if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
+         {
+             if (constitution != baseAmout)
+             {
+                 constitution--;
+                 points++;
+                 if (constitution <= baseAmout)
+                 {
+                     constitution = baseAmout;
+                 }
+             }
+         }
+         GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Constitution = " + constitution, textStyle);
+         if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
+         {
+             if (constitution != 10 && points != baseAmout)
+             {
+                 constitution++;
+                 points--;
+             }
+         }
+         i++;
+         if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
+         {
+             if (inteligence != baseAmout)
+             {
+                 inteligence--;
+                 points++;
+                 if (inteligence <= baseAmout)
+                 {
+                     inteligence = baseAmout;
+                 }
+             }
+         }
+         GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Inteligence = " + inteligence, textStyle);
+         if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
+         {
+             if (inteligence != 10 && points != baseAmout)
+             {
+                 inteligence++;
+                 points--;
+             }
+         }
+         i++;
+         if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
+         {
+             if (wisdom != baseAmout)
+             {
+                 wisdom--;
+                 points++;
+                 if (wisdom <= baseAmout)
+                 {
+                     wisdom = baseAmout;
+                 }
+             }
+         }
+         GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Wisdom = " + wisdom, textStyle);
+         if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
+         {
+             if (wisdom != 10 && points != baseAmout)
+             {
+                 wisdom++;
+                 points--;
+             }
+         }
+         i++;
+         if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
+         {
+             if (charisma != baseAmout)
+             {
+                 charisma--;
+                 points++;
+                 if (charisma <= baseAmout)
+                 {
+                     charisma = baseAmout;
+                 }
+             }
+         }
+         GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Chariama = " + charisma, textStyle);
+         if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
+         {
+             if (charisma != 10 && points != baseAmout)
+             {
+                 charisma++;
+                 points--;
+             }
+         }
+         i++;*/
+        #endregion
+        for (int s = 0; s < stats.Length; s++)
         {
-            if (strength != baseAmout)
+
+            if( points < 80 && tempStats[s] > 0)
             {
-                strength--;
-                points++;
-                if (strength <= baseAmout)
+                if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
                 {
-                    strength = baseAmout;
+                    tempStats[s]--;
+                    points++;
                 }
             }
-        }
-        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Strength = " + strength, textStyle);
-        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
-        {
-            if (strength != 10 && points != baseAmout)
+            GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), statNames[s]+" = " + (stats[s] + tempStats[s]), textStyle);
+            if(points > 0)
             {
-                strength++;
-                points--;
-            }
-        }
-        i++;
-        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
-        {
-            if (dexterity != baseAmout)
-            {
-                dexterity--;
-                points++;
-                if (dexterity <= baseAmout)
+                if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
                 {
-                    dexterity = baseAmout;
+                    tempStats[s]++;
+                    points--;
                 }
             }
+            i++;
         }
-        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Dexterity = " + dexterity, textStyle);
-        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+",buttonStyle))
-        {
-            if (dexterity != 10 && points != baseAmout)
-            {
-                dexterity++;
-                points--;
-            }
-        }
-        i++;
-        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
-        {
-            if (constitution != baseAmout)
-            {
-                constitution--;
-                points++;
-                if (constitution <= baseAmout)
-                {
-                    constitution = baseAmout;
-                }
-            }
-        }
-        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Constitution = " + constitution, textStyle);
-        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
-        {
-            if (constitution != 10 && points != baseAmout)
-            {
-                constitution++;
-                points--;
-            }
-        }
-        i++;
-        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
-        {
-            if (inteligence != baseAmout)
-            {
-                inteligence--;
-                points++;
-                if (inteligence <= baseAmout)
-                {
-                    inteligence = baseAmout;
-                }
-            }
-        }
-        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Inteligence = " + inteligence, textStyle);
-        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
-        {
-            if (inteligence != 10 && points != baseAmout)
-            {
-                inteligence++;
-                points--;
-            }
-        }
-        i++;
-        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
-        {
-            if (wisdom != baseAmout)
-            {
-                wisdom--;
-                points++;
-                if (wisdom <= baseAmout)
-                {
-                    wisdom = baseAmout;
-                }
-            }
-        }
-        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Wisdom = " + wisdom, textStyle);
-        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
-        {
-            if (wisdom != 10 && points != baseAmout)
-            {
-                wisdom++;
-                points--;
-            }
-        }
-        i++;
-        if (GUI.Button(new Rect(3.25f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-", buttonStyle))
-        {
-            if (charisma != baseAmout)
-            {
-                charisma--;
-                points++;
-                if (charisma <= baseAmout)
-                {
-                    charisma = baseAmout;
-                }
-            }
-        }
-        GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Chariama = " + charisma, textStyle);
-        if (GUI.Button(new Rect(5.5f * scr.x, scr.y + i * (0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "+", buttonStyle))
-        {
-            if (charisma != 10 && points != baseAmout)
-            {
-                charisma++;
-                points--;
-            }
-        }
-        i++;
         GUI.Box(new Rect(3.75f * scr.x, scr.y + i * (0.5f * scr.y), 1.75f * scr.x, 0.5f * scr.y), "Points: " + points, textStyle);
         #endregion
         #region Character Name and Save & Play
@@ -413,12 +497,86 @@ public class CustomSet : MonoBehaviour
         characterData.hair = hairIndex;
         characterData.skin = skinIndex;
         characterData.clothes = clothesIndex;
-        characterData.charName = charName;
+        characterData.playerName = charName;
+        characterData.playerStats = stats;
+        characterData.playerClass = classes[classIndex];
         var serializer = new XmlSerializer(typeof(CharacterPrefs));
         using (var stream = new FileStream(fullPath, FileMode.Create))
         {
             serializer.Serialize(stream, characterData);
             
+        }
+    }
+    void ChooseClass(int className)
+    {
+        classIndex = className;
+        switch (className)
+        {
+            case 0:
+                stats[0] = 15;
+                stats[1] = 10;
+                stats[2] = 10;
+                stats[3] = 10;
+                stats[4] = 10;
+                stats[5] = 5;
+                break;
+            case 1:
+                stats[0] = 5;
+                stats[1] = 10;
+                stats[2] = 10;
+                stats[3] = 10;
+                stats[4] = 10;
+                stats[5] = 15;
+                break;
+            case 2:
+                stats[0] = 10;
+                stats[1] = 10;
+                stats[2] = 10;
+                stats[3] = 10;
+                stats[4] = 10;
+                stats[5] = 10;
+                break;
+            case 3:
+                stats[0] = 5;
+                stats[1] = 15;
+                stats[2] = 15;
+                stats[3] = 10;
+                stats[4] = 10;
+                stats[5] = 5;
+                break;
+
+            case 4:
+                stats[0] = 15;
+                stats[1] = 10;
+                stats[2] = 15;
+                stats[3] = 5;
+                stats[4] = 5;
+                stats[5] = 10;
+                break;
+            case 5:
+                stats[0] = 5;
+                stats[1] = 15;
+                stats[2] = 10;
+                stats[3] = 15;
+                stats[4] = 10;
+                stats[5] = 5;
+                break;
+            case 6:
+                stats[0] = 10;
+                stats[1] = 10;
+                stats[2] = 10;
+                stats[3] = 15;
+                stats[4] = 10;
+                stats[5] = 5;
+                break;
+            case 7:
+                stats[0] = 5;
+                stats[1] = 5;
+                stats[2] = 5;
+                stats[3] = 15;
+                stats[4] = 15;
+                stats[5] = 15;
+                break;
         }
     }
 }

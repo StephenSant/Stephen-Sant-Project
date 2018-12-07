@@ -165,6 +165,7 @@ public class Inventory : MonoBehaviour
                             if (GUI.Button(new Rect(6.5f * scr.x, 5.75f * scr.y, 1 * scr.x, 0.5f * scr.y), "Equip", buttonStyle))
                             {
                                 weaponInfo = selectedItem;
+                                Debug.Log(weaponInfo.MeshName);
                                 Instantiate(Resources.Load("Prefabs/Items/" + weaponInfo.MeshName),equippedLocation[0]);
                                 if (curWeapon != null)
                                 {

@@ -14,7 +14,7 @@ public class PlayerMagicAttack : MonoBehaviour
     void Update()
     {
         PlayerHandler handler = GetComponent<PlayerHandler>();
-        if (Input.GetMouseButtonDown(0)&& handler.curMana > manaUsed&&Time.timeScale!=0)
+        if (Input.GetMouseButtonDown(1)&& handler.curMana > manaUsed&&Time.timeScale!=0)
         {
             Instantiate(particle, firePoint.position, firePoint.rotation, null);
             handler.curMana -= manaUsed;

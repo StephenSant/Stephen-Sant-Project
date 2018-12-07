@@ -906,9 +906,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortType: All
   dropLocation: {fileID: 4214833115849050}
-  equippedLocation: []
+  equippedLocation:
+  - {fileID: 4414166293037500}
   curWeapon: {fileID: 0}
-  curHelm: {fileID: 0}
   backgroundStyle:
     m_Name: 
     m_Normal:
