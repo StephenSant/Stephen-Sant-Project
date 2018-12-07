@@ -8,6 +8,7 @@ TagManager:
   - Item
   - GameManager
   - Enemy
+  - Shop
   layers:
   - Default
   - TransparentFX

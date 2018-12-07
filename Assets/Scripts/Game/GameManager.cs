@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     #region References
     [Header("References")]
     public GameObject player;
+    //public AudioClip music;
     #endregion
     #region Stats
     public int strength;

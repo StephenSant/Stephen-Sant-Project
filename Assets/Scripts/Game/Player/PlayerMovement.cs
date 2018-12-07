@@ -26,8 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float speed = walkSpeed;//speed that we're moving at
-
+        float speed;
         //Running
         if (Input.GetKey(GameManager.run) && handler.curStamina > 0.5f)
         {

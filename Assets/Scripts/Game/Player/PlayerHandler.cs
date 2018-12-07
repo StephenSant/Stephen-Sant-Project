@@ -31,9 +31,7 @@ public class PlayerHandler : MonoBehaviour
 
     void Start()
     {
-        
-        curStamina = maxStamina;
-        curMana = maxMana;
+
         uI = GetComponent<PlayerUI>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -54,12 +52,17 @@ public class PlayerHandler : MonoBehaviour
             wisdom = data.playerStats[4];
             charisma = data.playerStats[5];
 
-            if (data.playerName!="Adventurer") { gameObject.name = data.playerName + " the " + data.playerClass; }
+            if (data.playerName != "Adventurer") { gameObject.name = data.playerName + " the " + data.playerClass; }
 
         }
-        curHealth = maxHealth;
-        
 
+        maxHealth += constatution;
+        maxStamina += dexterity;
+        maxMana += wisdom;
+
+        curHealth = maxHealth;
+        curStamina = maxStamina;
+        curMana = maxMana;
     }
 
     void Update()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MagicBlast : MonoBehaviour
 {
     public float speed;
-    public float damage = 1;
+    public float damage = 15;
     public float range;
 
     // Update is called once per frame
@@ -21,12 +21,17 @@ public class MagicBlast : MonoBehaviour
         {
             if (other.GetComponent<EnemyHealth>() == null)
             {
-                Debug.LogError("" + other.name+" has no health script!");
+                Debug.LogError("" + other.name + " has no health script!");
             }
             else
             {
                 other.GetComponent<EnemyHealth>().curHealth -= damage;
+
+                other.transform.GetComponent<EnemyHealth>().curHealth -= damage;
+                Debug.Log("You hit a " + other.transform.name + " with " + damage + " points of damage!");
+
             }
+
         }
         Destroy(gameObject);
     }
