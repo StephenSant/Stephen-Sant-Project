@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             speed = walkSpeed;
-            handler.curStamina += 0.4f;
         }
 
         //Moving backwards and forwards

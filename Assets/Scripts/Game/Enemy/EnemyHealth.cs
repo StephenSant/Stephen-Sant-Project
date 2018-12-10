@@ -23,4 +23,10 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log(gameObject.name+" has died.");
         }  
 	}
+
+    private void OnDestroy()
+    {
+        GameObject clone = Instantiate(Resources.Load("Prefabs/Items/" + ItemData.CreateItem(402).MeshName),GetComponentInChildren<MeshRenderer>().transform.position, GetComponentInChildren<MeshRenderer>().transform.rotation) as GameObject;
+        clone.AddComponent<Rigidbody>().useGravity = true;
+    }
 }

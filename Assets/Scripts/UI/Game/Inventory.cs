@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
     public static List<Item> inv = new List<Item>();
 
     public Item selectedItem;
-    public static int money;
+    public static int money = 1;
 
     public string sortType = "All";
 
@@ -165,7 +165,6 @@ public class Inventory : MonoBehaviour
                             if (GUI.Button(new Rect(6.5f * scr.x, 5.75f * scr.y, 1 * scr.x, 0.5f * scr.y), "Equip", buttonStyle))
                             {
                                 weaponInfo = selectedItem;
-                                Debug.Log(weaponInfo.MeshName);
                                 Instantiate(Resources.Load("Prefabs/Items/" + weaponInfo.MeshName),equippedLocation[0]);
                                 if (curWeapon != null)
                                 {
@@ -215,11 +214,15 @@ public class Inventory : MonoBehaviour
                 GUI.Box(new Rect(5.5f * scr.x, 1.5f * scr.y, 2 * scr.x, 2 * scr.y), "", iconStyle);
                 GUI.Box(new Rect(5.5f * scr.x, 3.75f * scr.y, 5 * scr.x, 2 * scr.y), "", infoStyle);
             }
+
+            GUI.Box(new Rect(7f * scr.x, 7f * scr.y, 2 * scr.x, 0.75f * scr.y), "Money: " + money, infoStyle);
         }
 
     }
     void DisplayInv(string sortType)
     {
+
+
         if (!(sortType == "All" || sortType == ""))//this displays the selected sort type
         {
             ItemTypes type = (ItemTypes)System.Enum.Parse(typeof(ItemTypes), sortType);

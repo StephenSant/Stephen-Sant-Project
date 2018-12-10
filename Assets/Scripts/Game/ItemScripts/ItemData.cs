@@ -215,8 +215,8 @@ public static class ItemData
                 armour = 0;
                 amount = 1;
                 heal = 0;
-                icon = "Coins_Icon";
-                mesh = "Coins_Mesh";
+                icon = "Coin_Icon";
+                mesh = "Coin_Mesh";
                 types = ItemTypes.Money;
                 break;
             case 403:

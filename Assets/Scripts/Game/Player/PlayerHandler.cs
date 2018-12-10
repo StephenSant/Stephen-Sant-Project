@@ -88,5 +88,7 @@ public class PlayerHandler : MonoBehaviour
             Inventory.ToggleInv();
         }
         uI.enabled = showUI;
+        curMana += 0.1f;
+        curStamina += 0.1f;
     }
 }

@@ -63,6 +63,7 @@ public class CustomSet : MonoBehaviour
     public GUIStyle buttonStyle;
     public GUIStyle inputStyle;
     public GUIStyle textStyle;
+    public GUIStyle classInfoStyle;
 
     private void Awake()
     {
@@ -73,12 +74,6 @@ public class CustomSet : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        /*strength = 0;
-        dexterity = 0;
-        constitution = 0;
-        inteligence = 0;
-        wisdom = 0;
-        charisma = 0;*/
         statNames = new string[6] 
         {
         "Strength",
@@ -282,7 +277,7 @@ public class CustomSet : MonoBehaviour
         }
         //move down the screen with the int using ++ each grouping of GUI elements are moved using this
         #endregion
-        #region classes
+        #region Classes
         i+=2;
         GUI.Box(new Rect(.5f * scr.x, scr.y + i * (0.5f * scr.y), 2 * scr.x, 0.5f * scr.y), "Class", textStyle);
         i++;
@@ -307,6 +302,7 @@ public class CustomSet : MonoBehaviour
             ChooseClass(selectedIndex);
         }
         i++;
+        GUI.Box(new Rect(0.5f * scr.x, scr.y + i * (0.5f * scr.y), 7f * scr.x, 3f * scr.y), "Pick a class!", classInfoStyle);
         #endregion
         #region Skills
         i = 0;
@@ -472,7 +468,7 @@ public class CustomSet : MonoBehaviour
         #endregion
         #region Character Name and Save & Play
         //name of our character equals a GUI TextField that holds our character name and limit of characters
-        charName = GUI.TextField(new Rect(9.5f * scr.x, 1.5f * scr.y, 3f * scr.x, 1f * scr.y), charName, 16, inputStyle);
+        charName = GUI.TextField(new Rect(9.5f * scr.x, 1.5f * scr.y, 3.5f * scr.x, 1f * scr.y), charName, 16, inputStyle);
         //move down the screen with the int using ++ each grouping of GUI elements are moved using this
         i++;
         //GUI Button called Save and Play
